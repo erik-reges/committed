@@ -1,4 +1,4 @@
-# committed - habit tracker
+# db
 
 To install dependencies:
 

@@ -1,0 +1,29 @@
+FROM oven/bun:latest
+
+WORKDIR /app
+
+RUN mkdir -p packages/api packages/db packages/web
+
+COPY package.json .
+COPY bun.lockb .
+COPY tsconfig.json .
+
+COPY packages/db packages/db
+COPY packages/api packages/api
+COPY packages/web packages/web
+
+ARG VITE_API_URL
+ARG VITE_ENV
+
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_ENV=$VITE_ENV
+
+RUN bun install
+
+WORKDIR /app/packages/web
+
+RUN bun run build
+
+EXPOSE 8080
+
+CMD ["bun", "run", "serve"]

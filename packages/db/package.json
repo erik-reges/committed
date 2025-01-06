@@ -1,0 +1,25 @@
+{
+  "name": "@committed/db",
+  "module": "db.ts",
+  "type": "module",
+  "scripts": {
+    "generate": "drizzle-kit generate",
+    "migrate": "bunx drizzle-kit migrate",
+    "push": "drizzle-kit push",
+    "studio": "drizzle-kit studio",
+    "pull": "drizzle-kit introspect"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/pg": "^8.11.10",
+    "drizzle-kit": "^0.28.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.36.4",
+    "nanoid": "^5.0.9",
+    "pg": "^8.13.1"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "committed",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf node_modules && bun i",
+    "dev": "bun --filter '*' dev",
+    "db:migrate": "bun --filter @committed/db migrate",
+    "db:generate": "bun --filter @committed/db generate",
+    "db:push": "bun --filter @committed/db push",
+    "db:studio": "bun --filter @committed/db studio",
+    "db:pull": "bun --filter @committed/db introspect",
+    "dev:api": "bun --cwd packages/api dev",
+    "dev:web": "bun --cwd packages/web dev",
+    "build:web": "bun --cwd packages/web build",
+    "docker:api": "docker build -f Dockerfile.api -t committed-api .",
+    "docker:web": "docker build -f Dockerfile.web -t committed .",
+    "docker:api:run": "docker run -p 3000:3000 committed-api",
+    "docker:web:run": "docker run -p 5173:5173 committed",
+    "deploy:api": "fly deploy --config ./fly.api.toml --dockerfile ./Dockerfile.api",
+    "deploy:web": "fly deploy --config ./fly.web.toml --dockerfile ./Dockerfile.web",
+    "deploy!": "bun deploy:api && bun deploy:web",
+    "commit": "git add . && git commit -m \"stuff\" && git push",
+    "release": "bun commit && bun run deploy!",
+    "proxy": "fly proxy 5432 -a committed-pg"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.9",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
